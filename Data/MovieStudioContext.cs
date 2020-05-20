@@ -8,11 +8,14 @@ using System.Threading.Tasks;
 
 namespace Data
 {
+    // creates and connects the app with the database
     public class MovieStudioContext: DbContext
     {
+        // defines the tables for the database
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Studio> Studios{ get; set; }
 
+        // creates local database for the app
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // configures one-to-many relationship

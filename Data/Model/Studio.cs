@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data.Model
 {
+    // The class defines the different columns for the table Studios.
     public class Studio
     {
         public int Id { get; set; }

@@ -35,7 +35,7 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnReset = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listViewMovies = new System.Windows.Forms.ListView();
             this.btnSaveUpdate = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
@@ -140,19 +140,19 @@
             this.btnReset.UseVisualStyleBackColor = false;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
-            // listView1
+            // listViewMovies
             // 
-            this.listView1.BackColor = System.Drawing.Color.LightCyan;
-            this.listView1.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listView1.GridLines = true;
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(58, 116);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(197, 310);
-            this.listView1.TabIndex = 51;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.List;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            this.listViewMovies.BackColor = System.Drawing.Color.LightCyan;
+            this.listViewMovies.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewMovies.GridLines = true;
+            this.listViewMovies.HideSelection = false;
+            this.listViewMovies.Location = new System.Drawing.Point(58, 116);
+            this.listViewMovies.Name = "listViewMovies";
+            this.listViewMovies.Size = new System.Drawing.Size(197, 310);
+            this.listViewMovies.TabIndex = 51;
+            this.listViewMovies.UseCompatibleStateImageBehavior = false;
+            this.listViewMovies.View = System.Windows.Forms.View.List;
+            this.listViewMovies.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // btnSaveUpdate
             // 
@@ -530,7 +530,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbSearch);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.listViewMovies);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtSearch);
@@ -560,7 +560,7 @@
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button btnReset;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listViewMovies;
         private System.Windows.Forms.Button btnSaveUpdate;
         private System.Windows.Forms.Button btnEdit;
         public System.Windows.Forms.Label lblTitle;

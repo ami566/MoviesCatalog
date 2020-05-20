@@ -13,7 +13,7 @@ using Data;
 using Data.Model;
 
 // dali da sloja logoto i label-a v metod ?
-// za dellete i reset butonite ima neshta se povtarqt, moje da se napravi metod ?
+// za delete i reset butonite ima neshta se povtarqt, moje da se napravi metod ?
 
 namespace MoviesCatalog
 {
@@ -26,36 +26,48 @@ namespace MoviesCatalog
         {
             InitializeComponent();
         }
+
+        private void MovieCatalog_Load(object sender, EventArgs e)
+        {
+            UpdateListView();
+            cmbSearch.Text = "All";
+        }
+
         public void UpdateListView()
         {
-            listView1.Items.Clear();
+            listViewMovies.Items.Clear();
             foreach (var movie in movieBusiness.GetAll())
             {
                 ListViewItem item = new ListViewItem();
                 item.Text = movie.Title;
                 item.Tag = movie;
-                listView1.Items.Add(item);
+                listViewMovies.Items.Add(item);
             }
         }
         private void btnInsert_Click_1(object sender, EventArgs e)
         {
+            // invokes the AddMovie form
             AddMovie frm = new AddMovie(this);
             frm.Show();
         }
         private void btnStudios_Click(object sender, EventArgs e)
         {
+            // invokes the Studios form
             Studios frm = new Studios(this);
             frm.Show();
         }
         private void btnDelete_Click_1(object sender, EventArgs e)
         {
-            if (listView1.SelectedItems.Count > 0)
+            if (listViewMovies.SelectedItems.Count > 0)
             {
-                Movie movieToDelete = (Movie)listView1.SelectedItems[0].Tag;
+                // gets and deletes the selected movie
+                Movie movieToDelete = (Movie)listViewMovies.SelectedItems[0].Tag;
                 movieBusiness.Delete(movieToDelete.Id);
+                
                 UpdateListView();
-                listView1.Enabled = true;
-                StaticLabelsVisibility(false);
+
+                // hides the info for the movie and goes back to the start form view
+                NonEditableLabelsVisibility(false);
                 LabelsVisibility(false);
                 btnEdit.Visible = false;
                 btnSaveUpdate.Visible = false;
@@ -65,78 +77,85 @@ namespace MoviesCatalog
                 lblInfo.Visible = true;
             }
         }
-
-        private void MovieCatalog_Load(object sender, EventArgs e)
-        {
-            UpdateListView();
-            cmbSearch.Text = "All";
-        }
+          
        
         private void btnSearch_Click_1(object sender, EventArgs e)
         {
-            string text = txtSearch.Text;
-            if (text =="")
+            string searchedItem = txtSearch.Text;
+
+            // returns nothing if the search textbox is empty
+            if (searchedItem =="")
             {
                 return;
             }
 
-            listView1.Clear();
+            listViewMovies.Clear();
 
-            List<Movie> movies = new List<Movie>();
+            // creates list for the movies that meet the searched requirements
+            List<Movie> searchedMovies = new List<Movie>();
 
+            // searchs for movies by the chosen criteria in the cmbSearch combobox
+            // and if there are found movies, they are added to the searchedMovies list 
             switch (cmbSearch.Text)
             {
                 case "Id":
-                    movies = movieStudioContext.Movies.Where(a => a.Id.ToString() == text).ToList();
+                    searchedMovies = movieStudioContext.Movies.Where(a => a.Id.ToString() == searchedItem).ToList();
                     break;
                 case "Title":
-                    movies = movieStudioContext.Movies.Where(a => a.Title.Contains(text)).ToList();
+                    searchedMovies = movieStudioContext.Movies.Where(a => a.Title.Contains(searchedItem)).ToList();
                     break;
                 case "Year":
-                    movies = movieStudioContext.Movies.Where(a => a.Year.ToString() == text).ToList();
+                    searchedMovies = movieStudioContext.Movies.Where(a => a.Year.ToString() == searchedItem).ToList();
                     break;
                 case "Genre":
-                    movies = movieStudioContext.Movies.Where(a => a.Genre == text).ToList();
+                    searchedMovies = movieStudioContext.Movies.Where(a => a.Genre == searchedItem).ToList();
                     break;
                 case "Director":
-                    movies = movieStudioContext.Movies.Where(a => a.Director == text).ToList();
+                    searchedMovies = movieStudioContext.Movies.Where(a => a.Director == searchedItem).ToList();
                     break;
                 case "Rating":
-                    movies = movieStudioContext.Movies.Where(a => a.Rating == text).ToList();
+                    searchedMovies = movieStudioContext.Movies.Where(a => a.Rating == searchedItem).ToList();
                     break;
+                    // searchs by all categories combined
                 case "All":
-                    movies = movieStudioContext.Movies.Where(a => (a.Title.Contains(text)) ||
-            (a.Director.Contains(text)) || ((a.Year.ToString() == text)) || ((a.Genre == text)) ||
-            ((a.Id.ToString() == text)))
+                    searchedMovies = movieStudioContext.Movies.Where(a => (a.Title.Contains(searchedItem)) ||
+            (a.Director.Contains(searchedItem)) || ((a.Year.ToString() == searchedItem)) || ((a.Genre == searchedItem)) ||
+            ((a.Id.ToString() == searchedItem)))
             .ToList();
                     break;
             }
             
-
-            foreach (var movie in movies)
+            // makes ListViewItem from every movie in the searchedMovies list
+            // then adds it to listView1
+            foreach (var movie in searchedMovies)
             {
                 ListViewItem item = new ListViewItem();
                 item.Text = movie.Title;
                 item.Tag = movie;
-                listView1.Items.Add(item);
+                listViewMovies.Items.Add(item);
             }
 
-            if (listView1.Items.Count == 0)
+            // shows message if none of the movies meet the requirements
+            if (listViewMovies.Items.Count == 0)
             {
                 MessageBox.Show("0 results were found!", "Search result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnReset_Click(sender, e);
                 return;
             }
 
-            GetMovieInfo((Movie)listView1.Items[0].Tag, true);
+            // shows the info for the first item in the listViewMovies
+            GetMovieInfo((Movie)listViewMovies.Items[0].Tag);
                  
         }
+
+        // hides the info gotten from the search action
+        // goes back to the start form view
         private void btnReset_Click(object sender, EventArgs e)
         {
             txtSearch.Text = "";
             cmbSearch.Text = "All";
             UpdateListView();
-            StaticLabelsVisibility(false);
+            NonEditableLabelsVisibility(false);
             LabelsVisibility(false);
             btnEdit.Visible = false;
             pictureBox1.Visible = false;
@@ -145,7 +164,8 @@ namespace MoviesCatalog
             lblInfo.Visible = true;
         }
 
-        private void FillLabels(Movie selectedMovie)
+        // fills the labels and the textBoxes with info of the selected movie
+        private void FillLabelsAndTextBoxes(Movie selectedMovie)
         {
             lblId.Text = selectedMovie.Id.ToString();
             lblTtl.Text = selectedMovie.Title.ToString();
@@ -154,7 +174,7 @@ namespace MoviesCatalog
             lblRtng.Text = selectedMovie.Rating.ToString();
             lblDir.Text = selectedMovie.Director.ToString();
             lblStd.Text = studioBusiness.Get(int.Parse(selectedMovie.StudioMId.ToString())).Name;
-            pictureBox1.Image = byteArrayToImage(selectedMovie.Image);
+            pictureBox1.Image = ByteArrayToImage(selectedMovie.Image);
 
             txtTtl.Text = lblTtl.Text;
             txtYear.Text = lblYr.Text;
@@ -165,38 +185,31 @@ namespace MoviesCatalog
 
             lblId.Visible = true;
             LabelsVisibility(true);
-            StaticLabelsVisibility(true);
-            
-            
+            NonEditableLabelsVisibility(true);
         }
-        private void GetMovieInfo(Movie movie, bool a)
+
+        // shows detailed info for a specific movie
+        private void GetMovieInfo(Movie movie)
         {
-            FillLabels(movie);
-            btnEdit.Visible = a;
-            pictureBox1.Visible = a;
+            FillLabelsAndTextBoxes(movie);
+            btnEdit.Visible = true;
+            pictureBox1.Visible = true;
             logo.Visible = false;
             lblInfo.Visible = false;
         }
+
+        // shows the info for the selected movie
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                var selectedMovie = (Movie)listView1.SelectedItems[0].Tag;
-                GetMovieInfo(selectedMovie, true);
+                var selectedMovie = (Movie)listViewMovies.SelectedItems[0].Tag;
+                GetMovieInfo(selectedMovie);
             }
             catch (Exception ex) { }
         }
-        public void FillComboBox()
-        {
-            List<Studio> studios = studioBusiness.GetAll();
-            foreach (var item in studios)
-            {
-                txtStd.Items.Add(item.Name);
-            }
-        }
-      
-       
 
+        // allows to edit the movie info by changing the labels to textboxes
         private void btnEdit_Click_1(object sender, EventArgs e)
         {
             TextBoxesVisibility(true);
@@ -205,26 +218,37 @@ namespace MoviesCatalog
             btnEdit.Visible = false;
             btnSaveUpdate.Visible = true;
             FormEnabled(false);
-            FillComboBox();
+            FillStudioComboBox();
 
         }
 
-        private void FormEnabled(bool a)
+        // fills the studio comboBox with the studio names from studios table
+        public void FillStudioComboBox()
         {
-            listView1.Enabled = a;
-            btnDelete.Enabled = a;
-            btnInsert.Enabled = a;
-            btnSearch.Enabled = a;
-            btnReset.Enabled = a;
-            btnStudios.Enabled = a;
-            cmbSearch.Enabled = a;
-            txtSearch.Enabled = a;
+            List<Studio> studios = studioBusiness.GetAll();
+            foreach (var item in studios)
+            {
+                txtStd.Items.Add(item.Name);
+            }
         }
 
+        // enables or disables the form by enabling or disabling the listViewMovies and the buttons enable option
+        private void FormEnabled(bool enableOption)
+        {
+            listViewMovies.Enabled = enableOption;
+            btnDelete.Enabled = enableOption;
+            btnInsert.Enabled = enableOption;
+            btnSearch.Enabled = enableOption;
+            btnReset.Enabled = enableOption;
+            btnStudios.Enabled = enableOption;
+            cmbSearch.Enabled = enableOption;
+            txtSearch.Enabled = enableOption;
+        }
+
+        // returns the movie after edit
         private Movie GetEditedMovie()
         {
             Movie movie = new Movie();
-            movie.Id = int.Parse(lblId.Text);
 
             var title = txtTtl.Text;
             int year = 0;
@@ -238,6 +262,8 @@ namespace MoviesCatalog
 
             int studioId = 0;
             List<Studio> studios = studioBusiness.GetAll();
+
+            // finds the studioId by its name
             foreach (var item in studios)
             {
                 if (item.Name == studioName)
@@ -246,6 +272,8 @@ namespace MoviesCatalog
                 }               
             }
 
+            // creates and adds new studio in the database 
+            // if studio with the given name is not found
             if (studioId == 0)
             {
                 Studio stud = new Studio();
@@ -254,6 +282,8 @@ namespace MoviesCatalog
                 studios.Add(stud);
                 studioId = stud.Id;
             }
+
+            movie.Id = int.Parse(lblId.Text);
             movie.StudioMId = studioId;
             movie.Image = img;
             movie.Title = title;
@@ -263,69 +293,96 @@ namespace MoviesCatalog
             movie.Director = director;
             return movie;
         }
+
+        // converts the image to a binary code, byte array
         public byte[] ConvertImageToBinary(System.Drawing.Image imageIn)
         {
             MemoryStream ms = new MemoryStream();
             imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
             return ms.ToArray();
         }
-        public Image byteArrayToImage(byte[] byteArrayIn)
+
+        // converts the binary code, the byte array, to image
+        public Image ByteArrayToImage(byte[] byteArrayIn)
         {
             MemoryStream ms = new MemoryStream(byteArrayIn);
             Image returnImage = Image.FromStream(ms);
             return returnImage;
         }
+
+
         private void btnSaveUpdate_Click(object sender, EventArgs e)
         {
+            // gets the movie from the database
             Movie movie = movieBusiness.Get(int.Parse(lblId.Text));
+
+            // changes the movie's info with the edited one's
             Movie editedMovie = GetEditedMovie();
+            
+            // updates the database
             movieBusiness.Update(editedMovie);
+            
             UpdateListView();
 
-            GetMovieInfo(editedMovie, true);
+            // hides the textBoxes and the Save button
+            // shows the labels with the info of the updated movie
+            GetMovieInfo(editedMovie);
             TextBoxesVisibility(false);
-            pictureBox1.Enabled = false;
+
             btnSaveUpdate.Visible = false;
+
+            // makes the pictureBox noteditable again
+            pictureBox1.Enabled = false;
+            // the form is accessible again
             FormEnabled(true);
         }
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+            // opens file dialog that requires to add an image
             OpenFileDialog opnfd = new OpenFileDialog();
+
+            // filters with images with the given formats
             opnfd.Filter = "Image Files (*.jpg;*.jpeg;.*.gif;)|*.jpg;*.jpeg;.*.gif";
+            
+            // pictureBox1 gets the chosen image if there is one
             if (opnfd.ShowDialog() == DialogResult.OK)
             {
                 pictureBox1.Image = new Bitmap(opnfd.FileName);
-
             }
         }
-        private void LabelsVisibility(bool a)
+
+        // changes the visibility of the labels
+        private void LabelsVisibility(bool visibilityOption)
         {
-            lblTtl.Visible = a;
-            lblYr.Visible = a;
-            lblStd.Visible = a;
-            lblDir.Visible = a;
-            lblRtng.Visible = a;
-            lblGnr.Visible = a;
-        }
-        private void TextBoxesVisibility(bool a)
-        {
-            txtTtl.Visible = a;
-            txtYear.Visible = a;
-            txtStd.Visible = a;
-            txtRtng.Visible = a;
-            txtGnr.Visible = a;
-            txtDir.Visible = a;
+            lblTtl.Visible = visibilityOption;
+            lblYr.Visible = visibilityOption;
+            lblStd.Visible = visibilityOption;
+            lblDir.Visible = visibilityOption;
+            lblRtng.Visible = visibilityOption;
+            lblGnr.Visible = visibilityOption;
         }
 
-        private void StaticLabelsVisibility(bool a)
+        // changes the visibility of the textboxes
+        private void TextBoxesVisibility(bool visibilityOption)
         {
-            lblStaticId.Visible = a;
-            lblTitle.Visible = a;
-            lblYear.Visible = a;
-            lblGenre.Visible = a;
-            lblDirector.Visible = a;
-            lblRating.Visible = a;
-            lblStudio.Visible = a;
+            txtTtl.Visible = visibilityOption;
+            txtYear.Visible = visibilityOption;
+            txtStd.Visible = visibilityOption;
+            txtRtng.Visible = visibilityOption;
+            txtGnr.Visible = visibilityOption;
+            txtDir.Visible = visibilityOption;
+        }
+
+        // changes the visibility of the static labels
+        private void NonEditableLabelsVisibility(bool visibilityOption)
+        {
+            lblStaticId.Visible = visibilityOption;
+            lblTitle.Visible = visibilityOption;
+            lblYear.Visible = visibilityOption;
+            lblGenre.Visible = visibilityOption;
+            lblDirector.Visible = visibilityOption;
+            lblRating.Visible = visibilityOption;
+            lblStudio.Visible = visibilityOption;
         }
     }
 }

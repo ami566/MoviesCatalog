@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Data.Model
 {
+    // The class defines the different columns for the table Movies.
     public class Movie
     {
         public int Id { get; set; }
@@ -18,8 +19,5 @@ namespace Data.Model
         public string Director { get; set; }
         public int StudioMId { get; set; }
        public Studio StudioM { get; set; }
-       
-
-
     }
 }

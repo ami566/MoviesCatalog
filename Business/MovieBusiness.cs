@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Business
 {
+    // contains methods for the CRUD operations 
     public class MovieBusiness
     {
         private MovieStudioContext movieContext;
