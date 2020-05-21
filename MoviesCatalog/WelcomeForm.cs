@@ -17,18 +17,18 @@ namespace MoviesCatalog
             InitializeComponent();
         }
 
+        // invokes the MovieCatalog form
         private void btnMovies_Click(object sender, EventArgs e)
         {
             MovieCatalog frm = new MovieCatalog();
             frm.Show();
-            //this.Close();
         }
 
+        // invokes the Studios form
         private void btnStudios_Click(object sender, EventArgs e)
         {
             Studios frm = new Studios();
             frm.Show();
-           // this.Close();
         }
 
     }

@@ -41,9 +41,9 @@
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.btnInsert = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbStudio = new System.Windows.Forms.ComboBox();
             this.txtRating = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblPicture = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -182,16 +182,16 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // comboBox1
+            // cmbStudio
             // 
-            this.comboBox1.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(15)))));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(246, 295);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(223, 29);
-            this.comboBox1.TabIndex = 49;
+            this.cmbStudio.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbStudio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(15)))));
+            this.cmbStudio.FormattingEnabled = true;
+            this.cmbStudio.Location = new System.Drawing.Point(246, 295);
+            this.cmbStudio.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbStudio.Name = "cmbStudio";
+            this.cmbStudio.Size = new System.Drawing.Size(223, 29);
+            this.cmbStudio.TabIndex = 49;
             // 
             // txtRating
             // 
@@ -212,21 +212,21 @@
             this.txtRating.Size = new System.Drawing.Size(223, 29);
             this.txtRating.TabIndex = 50;
             // 
-            // label1
+            // lblPicture
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.LightBlue;
-            this.label1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label1.Font = new System.Drawing.Font("Tw Cen MT", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(15)))));
-            this.label1.Location = new System.Drawing.Point(624, 146);
-            this.label1.MaximumSize = new System.Drawing.Size(70, 150);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 120);
-            this.label1.TabIndex = 51;
-            this.label1.Text = "Click here to insert the movie\'s poster.";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.lblPicture.AutoSize = true;
+            this.lblPicture.BackColor = System.Drawing.Color.LightBlue;
+            this.lblPicture.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblPicture.Font = new System.Drawing.Font("Tw Cen MT", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPicture.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(15)))));
+            this.lblPicture.Location = new System.Drawing.Point(625, 146);
+            this.lblPicture.MaximumSize = new System.Drawing.Size(70, 150);
+            this.lblPicture.Name = "lblPicture";
+            this.lblPicture.Size = new System.Drawing.Size(59, 120);
+            this.lblPicture.TabIndex = 51;
+            this.lblPicture.Text = "Click here to insert the movie\'s poster.";
+            this.lblPicture.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPicture.Click += new System.EventHandler(this.lblPicture_Click);
             // 
             // AddMovie
             // 
@@ -234,9 +234,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.ClientSize = new System.Drawing.Size(853, 452);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblPicture);
             this.Controls.Add(this.txtRating);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmbStudio);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnInsert);
             this.Controls.Add(this.txtDirector);
@@ -275,8 +275,8 @@
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.Button btnInsert;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbStudio;
         private System.Windows.Forms.ComboBox txtRating;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblPicture;
     }
 }

@@ -12,9 +12,6 @@ using Business;
 using Data;
 using Data.Model;
 
-// dali da sloja logoto i label-a v metod ?
-// za delete i reset butonite ima neshta se povtarqt, moje da se napravi metod ?
-
 namespace MoviesCatalog
 {
     public partial class MovieCatalog : Form
@@ -22,6 +19,7 @@ namespace MoviesCatalog
         private MovieBusiness movieBusiness = new MovieBusiness();
         private MovieStudioContext movieStudioContext = new MovieStudioContext();
         private StudioBusiness studioBusiness = new StudioBusiness();
+
         public MovieCatalog()
         {
             InitializeComponent();
@@ -35,7 +33,10 @@ namespace MoviesCatalog
 
         public void UpdateListView()
         {
+            // deletes all the items from the listViewMovies
             listViewMovies.Items.Clear();
+
+            // gets all the items from the database's table "movies" and adds them to the listViewMovies
             foreach (var movie in movieBusiness.GetAll())
             {
                 ListViewItem item = new ListViewItem();
@@ -44,18 +45,21 @@ namespace MoviesCatalog
                 listViewMovies.Items.Add(item);
             }
         }
+
         private void btnInsert_Click_1(object sender, EventArgs e)
         {
             // invokes the AddMovie form
             AddMovie frm = new AddMovie(this);
             frm.Show();
         }
+        
         private void btnStudios_Click(object sender, EventArgs e)
         {
             // invokes the Studios form
             Studios frm = new Studios(this);
             frm.Show();
         }
+       
         private void btnDelete_Click_1(object sender, EventArgs e)
         {
             if (listViewMovies.SelectedItems.Count > 0)
@@ -77,7 +81,6 @@ namespace MoviesCatalog
                 lblInfo.Visible = true;
             }
         }
-          
        
         private void btnSearch_Click_1(object sender, EventArgs e)
         {
@@ -148,6 +151,19 @@ namespace MoviesCatalog
                  
         }
 
+        // allows to edit the movie info by changing the labels to textboxes
+        private void btnEdit_Click_1(object sender, EventArgs e)
+        {
+            TextBoxesVisibility(true);
+            LabelsVisibility(false);
+            pictureBox1.Enabled = true;
+            btnEdit.Visible = false;
+            btnSaveUpdate.Visible = true;
+            FormEnabled(false);
+            FillStudioComboBox();
+
+        }
+
         // hides the info gotten from the search action
         // goes back to the start form view
         private void btnReset_Click(object sender, EventArgs e)
@@ -174,6 +190,7 @@ namespace MoviesCatalog
             lblRtng.Text = selectedMovie.Rating.ToString();
             lblDir.Text = selectedMovie.Director.ToString();
             lblStd.Text = studioBusiness.Get(int.Parse(selectedMovie.StudioMId.ToString())).Name;
+            // converts byteArray to image and displays it in a picturebox
             pictureBox1.Image = ByteArrayToImage(selectedMovie.Image);
 
             txtTtl.Text = lblTtl.Text;
@@ -208,19 +225,7 @@ namespace MoviesCatalog
             }
             catch (Exception ex) { }
         }
-
-        // allows to edit the movie info by changing the labels to textboxes
-        private void btnEdit_Click_1(object sender, EventArgs e)
-        {
-            TextBoxesVisibility(true);
-            LabelsVisibility(false);
-            pictureBox1.Enabled = true;
-            btnEdit.Visible = false;
-            btnSaveUpdate.Visible = true;
-            FormEnabled(false);
-            FillStudioComboBox();
-
-        }
+        
 
         // fills the studio comboBox with the studio names from studios table
         public void FillStudioComboBox()
@@ -249,7 +254,8 @@ namespace MoviesCatalog
         private Movie GetEditedMovie()
         {
             Movie movie = new Movie();
-
+           
+            // declares variables for the info from the textboxes
             var title = txtTtl.Text;
             int year = 0;
             int.TryParse(txtYear.Text, out year);
@@ -261,6 +267,8 @@ namespace MoviesCatalog
             byte[] img = ConvertImageToBinary(pictureBox1.Image);
 
             int studioId = 0;
+
+            // gets all items from the database's table "studios"
             List<Studio> studios = studioBusiness.GetAll();
 
             // finds the studioId by its name
@@ -283,6 +291,7 @@ namespace MoviesCatalog
                 studioId = stud.Id;
             }
 
+            // sets the movie's properties
             movie.Id = int.Parse(lblId.Text);
             movie.StudioMId = studioId;
             movie.Image = img;
@@ -291,6 +300,7 @@ namespace MoviesCatalog
             movie.Genre = genre;
             movie.Rating = rating;
             movie.Director = director;
+
             return movie;
         }
 
@@ -309,7 +319,6 @@ namespace MoviesCatalog
             Image returnImage = Image.FromStream(ms);
             return returnImage;
         }
-
 
         private void btnSaveUpdate_Click(object sender, EventArgs e)
         {
@@ -336,6 +345,7 @@ namespace MoviesCatalog
             // the form is accessible again
             FormEnabled(true);
         }
+        
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             // opens file dialog that requires to add an image
@@ -347,6 +357,7 @@ namespace MoviesCatalog
             // pictureBox1 gets the chosen image if there is one
             if (opnfd.ShowDialog() == DialogResult.OK)
             {
+                // sets the image of the pictureBox by making the chosen image in the Bitmap variable
                 pictureBox1.Image = new Bitmap(opnfd.FileName);
             }
         }

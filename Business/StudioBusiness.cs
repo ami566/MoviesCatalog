@@ -8,10 +8,12 @@ using Data.Model;
 
 namespace Business
 {
+    // contains methods for the CRUD operations 
     public class StudioBusiness
     {
         private MovieStudioContext studioContext;
 
+        // gets all items from the table "Studios" table in the database
         public List<Studio> GetAll()
         {
             using (studioContext = new MovieStudioContext())
@@ -21,6 +23,7 @@ namespace Business
 
         }
 
+        // gets the item with a specific id from the table "Studios" table in the database
         public Studio Get(int id)
         {
             using (studioContext = new MovieStudioContext())
@@ -29,6 +32,7 @@ namespace Business
             }
         }
 
+        // adds new item in the "Studios" table in the database
         public void Add(Studio studio)
         {
             using (studioContext = new MovieStudioContext())
@@ -38,6 +42,8 @@ namespace Business
             }
         }
 
+        // updates an item from the database's table "Studios" by given object from the class Studio
+        // if item with the object's id exists
         public void Update(Studio studio)
         {
             using (studioContext = new MovieStudioContext())
@@ -52,6 +58,8 @@ namespace Business
             }
         }
 
+        // deletes item from the database's table "Studios" by given id
+        // if item with thethe given id exists
         public void Delete(int id)
         {
             using (studioContext = new MovieStudioContext())

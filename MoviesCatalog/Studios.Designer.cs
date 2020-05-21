@@ -32,8 +32,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Studios));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.label1 = new System.Windows.Forms.Label();
+            this.listViewMovies = new System.Windows.Forms.ListView();
+            this.lblStudioMovies = new System.Windows.Forms.Label();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -74,28 +74,28 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
-            // listView1
+            // listViewMovies
             // 
-            this.listView1.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(475, 113);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(173, 274);
-            this.listView1.TabIndex = 2;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.List;
+            this.listViewMovies.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewMovies.HideSelection = false;
+            this.listViewMovies.Location = new System.Drawing.Point(475, 113);
+            this.listViewMovies.Name = "listViewMovies";
+            this.listViewMovies.Size = new System.Drawing.Size(173, 274);
+            this.listViewMovies.TabIndex = 2;
+            this.listViewMovies.UseCompatibleStateImageBehavior = false;
+            this.listViewMovies.View = System.Windows.Forms.View.List;
             // 
-            // label1
+            // lblStudioMovies
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(482, 66);
-            this.label1.MaximumSize = new System.Drawing.Size(190, 200);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(166, 23);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "*Studio*\'s movies";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblStudioMovies.AutoSize = true;
+            this.lblStudioMovies.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStudioMovies.Location = new System.Drawing.Point(482, 66);
+            this.lblStudioMovies.MaximumSize = new System.Drawing.Size(190, 200);
+            this.lblStudioMovies.Name = "lblStudioMovies";
+            this.lblStudioMovies.Size = new System.Drawing.Size(166, 23);
+            this.lblStudioMovies.TabIndex = 3;
+            this.lblStudioMovies.Text = "*Studio*\'s movies";
+            this.lblStudioMovies.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnEdit
             // 
@@ -190,8 +190,8 @@
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnEdit);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.lblStudioMovies);
+            this.Controls.Add(this.listViewMovies);
             this.Controls.Add(this.dataGridView1);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(15)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -208,8 +208,8 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListView listViewMovies;
+        private System.Windows.Forms.Label lblStudioMovies;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnAdd;

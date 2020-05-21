@@ -13,6 +13,7 @@ namespace Business
     {
         private MovieStudioContext movieContext;
 
+        // gets all items from the table "Movies" table in the database
         public List<Movie> GetAll()
         {
             using (movieContext = new MovieStudioContext())
@@ -21,6 +22,7 @@ namespace Business
             }
         }
 
+        // gets the item with a specific id from the table "Movies" table in the database
         public Movie Get(int id)
         {
             using (movieContext = new MovieStudioContext())
@@ -29,6 +31,7 @@ namespace Business
             }
         }
 
+        // adds new item in the "Movies" table in the database
         public void Add(Movie movie)
         {
             using (movieContext = new MovieStudioContext())
@@ -38,6 +41,8 @@ namespace Business
             }
         }
 
+        // updates an item from the database's table "Movies" by given object from the class Movie
+        // if item with the object's id exists
         public void Update(Movie movie)
         {
             using (movieContext = new MovieStudioContext())
@@ -52,6 +57,8 @@ namespace Business
             }
         }
 
+        // deletes item from the database's table "Movies" by given id
+        // if item with thethe given id exists
         public void Delete(int id)
         {
             using (movieContext = new MovieStudioContext())
