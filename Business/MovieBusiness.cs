@@ -13,7 +13,7 @@ namespace Business
     {
         private MovieStudioContext movieContext;
 
-        // gets all items from the table "Movies" table in the database
+        // returns all items from the table "Movies" table in the database
         public List<Movie> GetAll()
         {
             using (movieContext = new MovieStudioContext())
@@ -22,7 +22,7 @@ namespace Business
             }
         }
 
-        // gets the item with a specific id from the table "Movies" table in the database
+        // returns the item with a specific id from the table "Movies" table in the database
         public Movie Get(int id)
         {
             using (movieContext = new MovieStudioContext())
@@ -69,7 +69,6 @@ namespace Business
                     movieContext.Movies.Remove(movie);
                     movieContext.SaveChanges();
                 }
-
             }
         }
     }

@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WelcomeForm));
             this.label1 = new System.Windows.Forms.Label();
             this.btnMovies = new System.Windows.Forms.Button();
-            this.btnStudios = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -52,25 +51,13 @@
             // 
             this.btnMovies.BackColor = System.Drawing.Color.AliceBlue;
             this.btnMovies.Font = new System.Drawing.Font("Tw Cen MT", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMovies.Location = new System.Drawing.Point(218, 380);
+            this.btnMovies.Location = new System.Drawing.Point(373, 386);
             this.btnMovies.Name = "btnMovies";
             this.btnMovies.Size = new System.Drawing.Size(101, 36);
             this.btnMovies.TabIndex = 1;
-            this.btnMovies.Text = "Movies";
+            this.btnMovies.Text = "Start";
             this.btnMovies.UseVisualStyleBackColor = false;
             this.btnMovies.Click += new System.EventHandler(this.btnMovies_Click);
-            // 
-            // btnStudios
-            // 
-            this.btnStudios.BackColor = System.Drawing.Color.AliceBlue;
-            this.btnStudios.Font = new System.Drawing.Font("Tw Cen MT", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStudios.Location = new System.Drawing.Point(510, 380);
-            this.btnStudios.Name = "btnStudios";
-            this.btnStudios.Size = new System.Drawing.Size(101, 36);
-            this.btnStudios.TabIndex = 2;
-            this.btnStudios.Text = "Studios";
-            this.btnStudios.UseVisualStyleBackColor = false;
-            this.btnStudios.Click += new System.EventHandler(this.btnStudios_Click);
             // 
             // label2
             // 
@@ -100,7 +87,6 @@
             this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.ClientSize = new System.Drawing.Size(854, 466);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.btnStudios);
             this.Controls.Add(this.btnMovies);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
@@ -119,7 +105,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnMovies;
-        private System.Windows.Forms.Button btnStudios;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox1;
     }

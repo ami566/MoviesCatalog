@@ -24,12 +24,5 @@ namespace MoviesCatalog
             frm.Show();
         }
 
-        // invokes the Studios form
-        private void btnStudios_Click(object sender, EventArgs e)
-        {
-            Studios frm = new Studios();
-            frm.Show();
-        }
-
     }
 }

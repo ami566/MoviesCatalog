@@ -13,7 +13,7 @@ namespace Business
     {
         private MovieStudioContext studioContext;
 
-        // gets all items from the table "Studios" table in the database
+        // returns all items from the table "Studios" table in the database
         public List<Studio> GetAll()
         {
             using (studioContext = new MovieStudioContext())
@@ -23,7 +23,7 @@ namespace Business
 
         }
 
-        // gets the item with a specific id from the table "Studios" table in the database
+        // returns the item with a specific id from the table "Studios" table in the database
         public Studio Get(int id)
         {
             using (studioContext = new MovieStudioContext())
