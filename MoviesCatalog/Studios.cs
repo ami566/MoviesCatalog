@@ -29,11 +29,6 @@ namespace MoviesCatalog
             frmMovieCatalog = frm;
         }
 
-        public Studios()
-        {
-            InitializeComponent();
-        }
-
         // enables the dataGridView
         private void ResetSelect()
         {

@@ -81,13 +81,52 @@ namespace MoviesCatalog
                 lblInfo.Visible = true;
             }
         }
-       
+
+        // allows to edit the movie info by changing the labels to textboxes
+        private void btnEdit_Click_1(object sender, EventArgs e)
+        {
+            TextBoxesVisibility(true);
+            LabelsVisibility(false);
+            pictureBox1.Enabled = true;
+            btnEdit.Visible = false;
+            btnSaveUpdate.Visible = true;
+            FormEnabled(false);
+            FillStudioComboBox();
+
+        }
+
+        private void btnSaveUpdate_Click(object sender, EventArgs e)
+        {
+            // gets the movie from the database
+            Movie movie = movieBusiness.Get(int.Parse(lblId.Text));
+
+            // changes the movie's info with the edited one's
+            Movie editedMovie = GetEditedMovie();
+
+            // updates the database
+            movieBusiness.Update(editedMovie);
+
+            UpdateListView();
+
+            // hides the textBoxes and the Save button
+            // shows the labels with the info of the updated movie
+            GetMovieInfo(editedMovie);
+            TextBoxesVisibility(false);
+
+            btnSaveUpdate.Visible = false;
+
+            // makes the pictureBox noteditable again
+            pictureBox1.Enabled = false;
+            // the form is accessible again
+            FormEnabled(true);
+        }
+
         private void btnSearch_Click_1(object sender, EventArgs e)
         {
             string searchedItem = txtSearch.Text;
 
             // returns nothing if the search textbox is empty
-            if (searchedItem =="")
+            if (searchedItem == "")
             {
                 return;
             }
@@ -119,7 +158,7 @@ namespace MoviesCatalog
                 case "Rating":
                     searchedMovies = movieStudioContext.Movies.Where(a => a.Rating == searchedItem).ToList();
                     break;
-                    // searchs by all categories combined
+                // searchs by all categories combined
                 case "All":
                     searchedMovies = movieStudioContext.Movies.Where(a => (a.Title.Contains(searchedItem)) ||
             (a.Director.Contains(searchedItem)) || ((a.Year.ToString() == searchedItem)) || ((a.Genre == searchedItem)) ||
@@ -127,7 +166,7 @@ namespace MoviesCatalog
             .ToList();
                     break;
             }
-            
+
             // makes ListViewItem from every movie in the searchedMovies list
             // then adds it to listView1
             foreach (var movie in searchedMovies)
@@ -148,19 +187,6 @@ namespace MoviesCatalog
 
             // shows the info for the first item in the listViewMovies
             GetMovieInfo((Movie)listViewMovies.Items[0].Tag);
-                 
-        }
-
-        // allows to edit the movie info by changing the labels to textboxes
-        private void btnEdit_Click_1(object sender, EventArgs e)
-        {
-            TextBoxesVisibility(true);
-            LabelsVisibility(false);
-            pictureBox1.Enabled = true;
-            btnEdit.Visible = false;
-            btnSaveUpdate.Visible = true;
-            FormEnabled(false);
-            FillStudioComboBox();
 
         }
 
@@ -225,7 +251,6 @@ namespace MoviesCatalog
             }
             catch (Exception ex) { }
         }
-        
 
         // fills the studio comboBox with the studio names from studios table
         public void FillStudioComboBox()
@@ -265,6 +290,13 @@ namespace MoviesCatalog
             var studioName = txtStd.Text;
 
             byte[] img = ConvertImageToBinary(pictureBox1.Image);
+
+            // throws error message if typed year is not in int format 
+            if (!int.TryParse(txtYear.Text, out year))
+            {
+                MessageBox.Show($"Insert valid year!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             int studioId = 0;
 
@@ -318,33 +350,7 @@ namespace MoviesCatalog
             MemoryStream ms = new MemoryStream(byteArrayIn);
             Image returnImage = Image.FromStream(ms);
             return returnImage;
-        }
-
-        private void btnSaveUpdate_Click(object sender, EventArgs e)
-        {
-            // gets the movie from the database
-            Movie movie = movieBusiness.Get(int.Parse(lblId.Text));
-
-            // changes the movie's info with the edited one's
-            Movie editedMovie = GetEditedMovie();
-            
-            // updates the database
-            movieBusiness.Update(editedMovie);
-            
-            UpdateListView();
-
-            // hides the textBoxes and the Save button
-            // shows the labels with the info of the updated movie
-            GetMovieInfo(editedMovie);
-            TextBoxesVisibility(false);
-
-            btnSaveUpdate.Visible = false;
-
-            // makes the pictureBox noteditable again
-            pictureBox1.Enabled = false;
-            // the form is accessible again
-            FormEnabled(true);
-        }
+        }       
         
         private void pictureBox1_Click(object sender, EventArgs e)
         {

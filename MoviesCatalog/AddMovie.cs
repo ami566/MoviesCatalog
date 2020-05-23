@@ -62,7 +62,13 @@ namespace MoviesCatalog
                 return;
             }
 
-            
+            // throws error message if typed year is not in int format 
+            if (!int.TryParse(txtYear.Text, out year))
+            {
+                MessageBox.Show($"Insert valid year!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             // gets all the items from the table "studios"
             List<Studio> studios = studioBusiness.GetAll();
             // checks if the studio in the text box exists in the database
@@ -148,7 +154,6 @@ namespace MoviesCatalog
                 cmbStudio.Items.Add(item.Name);
             }
         }
-
       
         // invokes the pictureBox1_Click method if clicked on the label
         // hides the label
