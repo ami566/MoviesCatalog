@@ -291,12 +291,7 @@ namespace MoviesCatalog
 
             byte[] img = ConvertImageToBinary(pictureBox1.Image);
 
-            // throws error message if typed year is not in int format 
-            if (!int.TryParse(txtYear.Text, out year))
-            {
-                MessageBox.Show($"Insert valid year!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+           
 
             int studioId = 0;
 

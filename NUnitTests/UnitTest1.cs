@@ -1,8 +1,11 @@
 using NUnit.Framework;
 using Data.Model;
 using Business;
-using Moq;
+
 using System.Collections.Generic;
+using Data;
+using System;
+using System.Linq;
 
 namespace NUnitTests
 {
@@ -11,40 +14,56 @@ namespace NUnitTests
         //Mock<MovieBusiness> movieBusiness = new Mock<MovieBusiness>();
         //  Mock<ICustomerView> mockView = new Mock<ICustomerView>();
 
-        private Movie movie;
-        private Studio studio;
         MovieBusiness movieBusiness = new MovieBusiness();
         StudioBusiness studioBusiness = new StudioBusiness();
-       // List< Movie > movies = movieBusiness.GetAll();
+
+        //public Movie movie
+        //{
+        //    get
+        //    {
+        //        return this.movie;
+        //    }
+        //    set
+        //    {
+        //        movie = new Movie
+        //        {
+        //            Title = "Batman",
+        //            Year = 2008,
+        //            Image = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 90 },
+        //            Genre = "Action",
+        //            Director = "Christopher Nolan",
+        //            Rating = "PG-13",
+        //            StudioMId = studio.Id
+        //        };
+        //    }
+        //}
+        //public Studio studio
+        //{
+        //    get
+        //    {
+        //        return this.studio;
+        //    }
+        //    set
+        //    {
+        //    }
+        //}
 
         [SetUp]
         public void Setup()
         {
-            studio = new Studio
-            {
-                Id = 2,
-                Name = "Warner Bros"
-            };
-
-            movie = new Movie
-            {
-                Id = 3,  
-                Title = "Batman",
-                Year = 2008,
-                Image = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 90 },
-                Genre = "Action",
-                Director = "Christopher Nolan",
-                Rating = "PG-13",
-                StudioMId = studio.Id
-               // StudioMId = 9
-            };
         }
 
-        [Test, Order(1)]
+        [Test]
         public void AddStudioStudioIdGreaterThanZero()
         {
+            Studio studio = new Studio
+                  {
+                      Name = "Warner Bros"
+                  };
+            List<Studio> studios = studioBusiness.GetAll();
             studioBusiness.Add(studio);
-            Assert.IsTrue(studio.Id > 0);
+            int studioId = studios.Where(a => a.Name == studio.Name).Single().Id;
+            Assert.IsTrue(studioId > 0);
 
         }
 
@@ -52,6 +71,7 @@ namespace NUnitTests
         [Test]
         public void AddMovieMovieIdGreaterThanZero()
         {
+            
             movieBusiness.Add(movie);
             var id = movie.Id;
             Assert.IsTrue(id > 0);
